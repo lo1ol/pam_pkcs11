@@ -230,6 +230,10 @@ static void parse_config_file(void) {
 	return;
 }
 
+void static engine_init() {
+       OPENSSL_add_all_algorithms_conf();
+}
+
 /*
 * values are taken in this order (low to high precedence):
 * 1- default values
@@ -238,6 +242,7 @@ static void parse_config_file(void) {
 */
 struct configuration_st *pk_configure( int argc, const char **argv ) {
 	int i;
+    engine_init();
 	/* try to find a configuration file entry */
 	for (i = 0; i < argc; i++) {
 	    if (strstr(argv[i],"config_file=") ) {
